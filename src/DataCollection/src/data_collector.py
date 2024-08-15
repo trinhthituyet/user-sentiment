@@ -1,5 +1,6 @@
 import tweepy
 import os
+from datetime import datetime
 
 
 def get_api():
@@ -16,10 +17,15 @@ def get_api():
 
 def collect_data(api):
     location_id = 1
-    trends = api.get_place_trends(location_id)
+    trends_res = api.get_place_trends(location_id)
 
-    for trend in trends[0]["trends"]:
-        print(trend)
+    trends = []
+    for trend in trends_res[0]["trends"]:
+        trends.append({
+        "name": trend["name"],
+        "tweet_volume": trend["tweet_volume"],
+        "timestamp": datetime.now()
+    })
 
 
 
